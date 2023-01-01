@@ -4,21 +4,23 @@ import './App.css';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="w-full bg-black">
+      <p className='text-center text-black '>TODO LIST</p>
+      <div className="w-[600px] min-h-[100px] ">
+        <section className="flex justify-between w-[100%]">
+          <button className='w-[100px] h-[80px] rounded-[5px]'>Add task</button>
+          <select name="" id="">
+            <option value="">All</option>
+            <option value="">incomplete</option>
+            <option value="">Completed</option>
+          </select>
+        </section>
+        
+        
+         
+
+      </div>
+
     </div>
   );
 }
