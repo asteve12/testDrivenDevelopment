@@ -13,7 +13,7 @@ test("adding of task", async () => {
         expect(screen.getByText(/no todos/i)).toBeInTheDocument()
        
         
-        await userEvents.click(addTaskBtn);
+        await userEvents.click(addTaskBtn)
         const todoModal = screen.getByTestId("todo-modal")
         expect(todoModal).toBeInTheDocument()
         const todoTitleInputBx = screen.getByLabelText(/title/i);
