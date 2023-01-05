@@ -25,7 +25,7 @@ function App() {
 
   return (
     <div className="w-full pt-[20px] font-bold text-[20px]">
-     {isModalOpen && <Rodal visible={false} onClose={()=>{}}  >
+     {isModalOpen && <Rodal visible={isModalOpen} onClose={()=>{}}  >
        <ModalBx></ModalBx>
       </Rodal>}
       <p className='text-center text-black '>TODO LIST</p>
