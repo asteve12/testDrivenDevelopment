@@ -16,9 +16,38 @@ test("adding of task", async () => {
         await userEvents.click(addTaskBtn)
         const todoModal = screen.getByTestId("todo-modal")
         expect(todoModal).toBeInTheDocument()
+
         const todoTitleInputBx = screen.getByLabelText(/title/i);
-        const todoStatusBx = screen.getByLabelText(/status/i);
-        await userEvents.type(todoTitleInputBx)
+        const todoStatusBx = screen.getByTestId(/status/i);
+        const modalAddTaskBtn = screen.getByTestId("add-task")
+        const modalCancelTaskBtn = screen.getByText(/cancel/i);
+        
+        const todoTitle = "work on my ebook"
+        const todoStatus = "complete"
+
+        //checking how form behave without a values fulled entered
+        await userEvent.click(modalAddTaskBtn);
+        const emptyFieldWarningText = screen.getByTestId("errorTest")
+        expect(emptyFieldWarningText).toBeInTheDocument()
+        
+
+        //checking how form behave when values is included
+        await userEvents.type(todoTitleInputBx,todoTitle);
+        await userEvent.selectOptions(todoStatusBx,todoStatus);
+
+        expect(todoTitleInputBx).toHaveValue(todoTitle)
+        expect(todoStatusBx).toHaveValue(todoStatus)
+
+        await userEvent.click(modalAddTaskBtn);
+
+
+        expect(todoContainer).toHaveLength(1);
+
+        
+
+        
+
+
         
         
 
