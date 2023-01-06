@@ -24,6 +24,7 @@ test("adding of task", async () => {
         
         const todoTitle = "work on my ebook"
         const todoStatus = "complete"
+        
 
         //checking how form behave without a values fulled entered
         await userEvent.click(modalAddTaskBtn);
