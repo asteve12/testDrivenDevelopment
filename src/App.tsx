@@ -1,4 +1,4 @@
-import {useState} from "react"
+import React, {useState} from "react"
 import Rodal from 'rodal';
 
 
@@ -23,11 +23,26 @@ function App() {
   const [titleValue, setTitleValue] = useState<string >();
   const [status,setStatus] = useState<string >()
    
+  //modal visibility
   const handleModalVisibility = () => {
     if (isModalOpen === false)
       return setIsModalOpen(!isModalOpen)
-    setIsModalOpen(isModalOpen);
-    }
+    setIsModalOpen(!isModalOpen);
+  }
+  
+
+
+  const validateFormField = () => {
+    
+  }
+  const handleFormSubmit = (e: React.SyntheticEvent)=>{
+    e.preventDefault()
+    const formObject = new FormData(e.target as HTMLFormElement);
+    
+    console.log("entries", formObject.entries())
+   
+  }
+    
 
  
   
@@ -35,10 +50,20 @@ function App() {
 
   return (
     <div className="w-full pt-[20px] font-bold text-[20px] h-screen bg-[#F8F8FF]">
-     {isModalOpen && <Rodal visible={isModalOpen} onClose={()=>{}}  >
+      {isModalOpen && <Rodal
+        customStyles={{
+          width: "500px",
+          height: "350px",
+          borderRadius: "5px",
+          backgroundColor: "#EFEBF2",
+          padding:"30px"
+        }}
+        visible={isModalOpen}
+        onClose={handleModalVisibility}>
         <ModalBx
           setTitleValue={setTitleValue}
           setStatus={setStatus}
+          handleFormSubmit={handleFormSubmit}
         ></ModalBx>
       </Rodal>}
       <p className='text-center text-[#585858] font-bold text-[30px]'>TODO LIST</p>
