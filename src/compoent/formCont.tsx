@@ -5,7 +5,8 @@ import React, { useState } from "react"
 type IModalBx = {
     setTitleValue:React.Dispatch<React.SetStateAction<string | undefined>>,
     setStatus:React.Dispatch<React.SetStateAction<string | undefined>>
-    handleFormSubmit:(e:React.SyntheticEvent) => void
+    handleFormSubmit: (e: React.SyntheticEvent) => void,
+    formHtmlContainer:React.RefObject<HTMLFormElement>
 
 }
 
@@ -13,7 +14,9 @@ type IModalBx = {
 
 export const ModalBx = ({ setTitleValue,
     setStatus,
-    handleFormSubmit }: IModalBx) => {
+    handleFormSubmit,
+    formHtmlContainer
+}: IModalBx) => {
    
 
 
@@ -22,23 +25,26 @@ export const ModalBx = ({ setTitleValue,
         <div data-testid="todo-modal" >
             <h5 className="text-[#766881] text-[25px]">Add TODO</h5>
             
-            <form action=""  onSubmit={handleFormSubmit}>
+            <form ref={formHtmlContainer} action=""  onSubmit={handleFormSubmit}>
                 
-                <label className="text-[12px] text-[#646681] mb-[7px]" htmlFor="labelField">Title</label><br></br>
-                <input name="title" className="w-[100%] h-[40px] rounded-[5px]" onChange={(e) => {
+                <label className="text-[12px] text-[#646681] mb-[7px]" htmlFor="title"  >Title</label><br></br>
+                <input id="title" name="title" className="w-[100%] h-[40px] rounded-[5px]" onChange={(e) => {
                     const currentElem = e.target as HTMLInputElement
                     setTitleValue(currentElem.value)
-                }} type="text" id="labelField" ></input>
+                }} type="text"  ></input>
                
                 
                 <label className="text-[12px] text-[#646681] mb-[10px]" htmlFor="status">status:</label><br></br>
-                <select name="status" className="w-[100%] h-[40px]  text-[12px] text-[#646681] rounded-[5px] bg-white"  id="status" data-testid="status" onChange={(e) => {
-                    
+                <select id="status" name="status"
+                    className="w-[100%] h-[40px]  text-[12px] text-[#646681] rounded-[5px] bg-white"
+                    data-testid="status"
+                    onChange={(e) => {
                     const currentElement = e.target as HTMLSelectElement
                     setStatus(currentElement?.value)
                 }}>
-                    <option value="">incomplete</option>
-                    <option value="">completed</option>
+                    <option disabled > -- select an option -- </option>
+                    <option  >incomplete</option>
+                    <option >completed</option>
                 </select>
                 
                 <button
