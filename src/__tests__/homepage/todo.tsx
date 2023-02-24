@@ -1,15 +1,17 @@
-import { render, screen } from "@testing-library/react"
+import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import App from "../../App"
+import { TodoContainer } from "../../compoent/Container"
 
 
 
 
 test("adding of task", async () => {
-        render(<App />)
+        render(<TodoContainer  todoItems={[]} />)
         const userEvents = userEvent.setup()
         const addTaskBtn = screen.getByText(/add task/i);
         const todoContainer = screen.getByTestId("todo-container");
+        
         expect(screen.getByText(/no todos/i)).toBeInTheDocument()
        
         
@@ -23,13 +25,22 @@ test("adding of task", async () => {
         const modalCancelTaskBtn = screen.getByText(/cancel/i);
         
         const todoTitle = "work on my ebook"
-        const todoStatus = "complete"
+        const todoStatus = "completed"
         
 
-        //checking how form behave without a values fulled entered
+        //checking how form behave without a values filled entered
         await userEvent.click(modalAddTaskBtn);
-        const emptyFieldWarningText = screen.getByTestId("errorTest")
-        expect(emptyFieldWarningText).toBeInTheDocument()
+
+        
+        await waitFor(() => {
+        expect(screen.getByTestId("todo-modal")).toBeInTheDocument()            
+        })
+
+        await userEvent.click(screen.getByTestId("add-task"))
+
+        const emptyFieldWarningText = screen.getByTestId("error")
+        expect(emptyFieldWarningText).toBeInTheDocument() 
+    
         
 
         //checking how form behave when values is included
@@ -42,7 +53,7 @@ test("adding of task", async () => {
         await userEvent.click(modalAddTaskBtn);
 
 
-        expect(todoContainer).toHaveLength(1);
+        expect(todoContainer.children).toHaveLength(1);
 
         
 
